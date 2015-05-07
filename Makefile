@@ -1,5 +1,5 @@
 TMPL = pandoc_custom/templates/revealjs.template
-CSL = pandoc_custom/csl/elsevier-harvard.csl
+CSL = pandoc_custom/csl/chicago-author-date-ital-author-bold-title.csl
 
 OUTDIR = output
 CURRENT_TARGET = output/contents
@@ -13,6 +13,6 @@ $(OUTDIR)/contents.slides.html: src/contents.md Makefile refs.bib
 	--filter pandoc_custom/filters/amsmath.hs \
 	-s -V revealjs-url=../reveal.js -t revealjs -f markdown \
 	--include-in-header=pandoc_custom/css/reveal_left_strong.css \
-	--filter pandoc-citeproc --csl=pandoc_custom/csl/elsevier-harvard.csl \
+	--filter pandoc-citeproc --csl=$(CSL) \
 	--bibliography=refs.bib \
 	-o $@ $<
