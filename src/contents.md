@@ -235,8 +235,62 @@ Now with factor structure:
 
 . . .
 
-- **incorporating new information**: factors represent persistent
-  states
+- **update distribution**: factors represent persistent states
+
+## Conditional distribution
+
+Conditioning sets need to align with density decomposition in order to
+be analytically accessible:
+
+- some conditional distributions are directly accessible
+
+- some conditional distributions require integration 
+
+Differentiate:
+
+- directly accessible
+- integrating some variables out
+- tree: integration using Bayes
+
+## Example
+
+\begin{align*}
+\overline{f}_{1 ; 23}(u_{1} \vert u_{2}, u_{3})&=
+	\frac{c_{123}(u_{1},u_{2},u_{3})}{c_{23}(u_{2},u_{3})}\\
+&=\frac{c_{23 ; 1}(u_{2},u_{3} \vert u_{1}) \overline{f}_{1}(u_{1})}
+{c_{23}(u_{2},u_{3})}
+\end{align*}
+
+. . .
+
+\begin{align*}
+c_{23}(u_{2},u_{3})
+&=\int_{0}^{1}c_{23 \vert 1}(u_{2},u_{3} ,\vert\ u_{1})\text{d}u_{1}\\
+&=\int_{0}^{1}c_{23 \vert 1}(u_{2},u_{3} ,\vert\ u_{1})
+	\overline{f}_{1}(u_{1})\text{d}u_{1}\\
+&=\int_{0}^{1}c_{123}(u_{1},u_{2},u_{3})\text{d}u_{1}
+\end{align*}
+
+
+## 
+
+- build vine such that desired conditional distributions are
+  accessible
+
+- which are accessible?
+
+## Conditioning trees
+
+
+## Perception
+
+- move away from blackbox approach
+
+## Multiple time layers
+
+## Time series
+
+Problem: stationarity
 
 
 ## Possible criticism
@@ -253,3 +307,4 @@ Now with factor structure:
 
 
 ## References
+
