@@ -255,7 +255,9 @@ X_{i}=\alpha_{1}S_{1}+\ldots+\alpha_{d_{S}}S_{d_{S}}+\epsilon_{i}
 
 So far: 
 
-- straightforward application of conventional R-Vine model
+- straightforward application of conventional R-Vine model to 
+  $\bf{X}=(X_{1},\ldots, X_{d},
+  \color{lawngreen}{S_{1},\ldots,S_{d_{S}}})$ 
 
 . . .
 
@@ -283,7 +285,7 @@ Now with factor structure:
 
 . . .
 
-- **stress testing**: what if factors are ... ?
+- **stress testing**: what if factors were ... ?
 
 . . .
 
@@ -344,6 +346,8 @@ Simulation possible:
 
 
 ## Problem
+
+**TODO**: add missing copula terms $c_{12}$ and $c_{13}$
 
 \begin{align*}
 \overline{f}_{1 ; 23}(u_{1} \vert u_{2}, u_{3})&=
@@ -511,12 +515,18 @@ $X_{7 \vert 2356}?$
 
 ## Conclusion
 
-- most likely: 
+- most likely: whether or not a conditional distribution is accessible
+  only depends on whether the unconditional distribution of the
+  conditioning set is accessible
 
 $$f_{\mathbf{w} \vert
 \mathbf{v}}=\frac{f_{\mathbf{x}}(x_{1},\ldots,x_{d})}{f_{\mathbf{v}}(x_{i}, x_{i}\in \mathbf{v})}$$
 
 $$f_{\mathbf{w} \vert \mathbf{v}} \Leftrightarrow f_{\mathbf{v}}(x_{i}, x_{i}\in \mathbf{v})$$
+
+- conditioning trees give you a way to visualize a vine structure
+- they give you an instruction of how to simulate from a given
+  conditional distribution
 
 # Next time
 
