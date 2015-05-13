@@ -43,3 +43,66 @@ Copulas.render(secondTree, "svg", string(picsPath, "simPossible"),
 Copulas.viz(secondTree, emph1 = [1, 5])
 Copulas.render(secondTree, "svg", string(picsPath, "integRequ"),
                emph1 = [1, 5])
+
+########################
+## vine visualization ##
+########################
+
+## plain tree
+Copulas.viz(vn, chrt="trees")
+Copulas.render(vn, "svg", string(picsPath, "vineTrees"), chrt="trees")
+
+## yes, through simulation
+Copulas.viz(vn, chrt="trees", emph1=[2, 3, 5], rootEmph=[7],
+            rootEmphFillColor1="blue")
+Copulas.render(vn, "svg", string(picsPath, "conditionalTarget"),
+               chrt="trees", emph1=[2, 3, 5], rootEmph=[7],
+               rootEmphFillColor1="blue")
+
+Copulas.viz(vn, chrt="trees", emph1=[2, 3, 5], rootEmph=[1],
+            rootEmphFillColor1="blue")
+Copulas.render(vn, "svg", string(picsPath, "conditionalTarget2"),
+               chrt="trees", emph1=[2, 3, 5], rootEmph=[1],
+               rootEmphFillColor1="blue")
+
+Copulas.viz(vn, chrt="trees",
+            emph1=[1, 2, 3, 5], rootEmph=[4],
+            rootEmphFillColor1="blue")
+Copulas.render(vn, chrt="trees", "svg",
+               string(picsPath, "conditionalTarget3"),
+               emph1=[1, 2, 3, 5], rootEmph=[4],
+               rootEmphFillColor1="blue")
+
+Copulas.viz(vn, chrt="trees", emph1=[1, 2, 3, 4, 5], rootEmph=[6],
+            rootEmphFillColor1="blue")
+Copulas.render(vn, "svg",
+               string(picsPath, "conditionalTarget4"),
+               chrt="trees", 
+               emph1=[1, 2, 3, 4, 5], rootEmph=[6],
+               rootEmphFillColor1="blue")
+
+Copulas.viz(vn, chrt="trees", emph1=[1, 2, 3, 4, 5, 6], rootEmph=[7],
+            rootEmphFillColor1="blue")
+Copulas.render(vn, "svg",
+               string(picsPath, "conditionalTarget5"),
+               chrt="trees", emph1=[1, 2, 3, 4, 5, 6], rootEmph=[7],
+               rootEmphFillColor1="blue")
+
+
+
+## no, requires integration
+Copulas.viz(vn, chrt="trees", emph1=[2, 3, 5, 6], rootEmph=[7],
+            rootEmphFillColor1="blue")
+Copulas.render(vn, "svg",
+               string(picsPath, "conditionalTarget6"),
+               chrt="trees", emph1=[2, 3, 5, 6], rootEmph=[7],
+               rootEmphFillColor1="blue")
+
+Copulas.viz(vn, chrt="trees", emph1=[2, 3, 5, 6], rootEmph=[1],
+            rootEmphFillColor1="red")
+Copulas.render(vn, "svg",
+               string(picsPath, "conditionalTarget7"),
+               chrt="trees", emph1=[2, 3, 5, 6], rootEmph=[1],
+               rootEmphFillColor1="red")
+
+

@@ -440,6 +440,75 @@ is part of $\mathcal{V}$'s density decomposition.
 
 - comparison to standard vine visualizations
 
+![](../pics/vineTrees.svg)
+
+##
+
+
+![](../pics/rvine_trees3.png)
+
+##
+
+- in **R-Vine matrix** notation
+
+\begin{equation*}
+\begin{pmatrix}
+4 & & & & & & \\
+7 & 5 & & & & & \\
+6 & 7 & 1 & & & & \\
+5 & 6 & 7 & 7 & & & \\
+1 & 1 & 6 & 2 & 6 & & \\
+2 & 3 & 3 & 3 & 2 & 2 & \\
+3 & 2 & 2 & 6 & 3 & 3 & 3 
+\end{pmatrix}
+
+
+\begin{pmatrix}
+7 & & & & & & \\
+4 & 4 & & & & & \\
+5 & 6 & 6 & & & & \\
+1 & 5 & 5 & 5 & & & \\
+2 & 1 & 1 & 1 & 1 & & \\
+3 & 2 & 2 & 3 & 3 & 3 & \\
+6 & 3 & 3 & 2 & 2 & 2 & 2 
+\end{pmatrix}
+
+\end{equation*}
+
+
+##
+
+$X_{7 \vert 235}?$
+
+![](../pics/conditionalTarget.svg)
+
+##
+
+![](../pics/conditionalTarget2.svg)
+
+##
+
+![](../pics/conditionalTarget3.svg)
+
+##
+
+![](../pics/conditionalTarget4.svg)
+
+##
+
+![](../pics/conditionalTarget5.svg)
+
+##
+
+$X_{7 \vert 2356}?$
+
+![](../pics/conditionalTarget6.svg)
+
+##
+
+![](../pics/conditionalTarget7.svg)
+
+
 ## Conclusion
 
 - most likely: 
