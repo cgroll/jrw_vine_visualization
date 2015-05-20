@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+        <meta name="author" content="R-Vines: conditioning sets" />
+            <title>JRW 2015</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+            <link rel="stylesheet" href="../reveal.js/css/theme/black.css" id="theme">
+            <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = '../reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+        <script src="../reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+            <style type="text/css">
+    p { text-align: left; }
+    .reveal ul {
+        width: 900px;
+    }
+    
+    .reveal strong { color: lawngreen;
+                     font-style: normal;
+                     font-weight: bold;
+                   }
+    
+    /* all headers are transformed to h1 by reveal.js, */
+    /* even individual slide headers. */
+    /* hence, h1 font size should not be too large */
+    .reveal h1 { 
+        font-style: normal;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    
+    </style>
+        
+    <!-- include local MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      "HTML-CSS": {
+      scale: 80,
+      },
+      extensions: ["tex2jax.js"],
+      TeX: { equationNumbers: { autoNumber: "AMS" } },
+      jax: ["input/TeX","output/HTML-CSS"],
+      tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}});
+    </script>
+    <script type="text/javascript" src="../MathJax/MathJax.js"></script>
+    
+  </head>
+  <body>
+        <div class="reveal">
+      <div class="slides">
+        
+                <section>
+          <h1 class="title">JRW 2015</h1>
+                              <h2 class="author">R-Vines: conditioning sets</h2>
+                    <h3 class="date">Christian Groll</h3>
+        </section>
+                        <section id="TOC">
+          <ul>
+          <li><a href="#/vine-copulas-introduction-and-motivation">Vine copulas: introduction and motivation</a></li>
+          <li><a href="#/copula-factor-model">Copula factor model</a></li>
+          <li><a href="#/conditioning-trees">Conditioning trees</a></li>
+          </ul>
+        </section>
+                
+        <section><section id="vine-copulas-introduction-and-motivation" class="titleslide slide level1"><h1>Vine copulas: introduction and motivation</h1></section><section id="section" class="slide level2">
+        <h1></h1>
+        <p><strong>Definition:</strong> Copula</p>
+        <p>A <span class="math"><em>d</em></span>-dimensional copula <span class="math"><em>C</em></span> is a multivariate distribution on <span class="math">[0, 1]<sup><em>d</em></sup></span> with <strong>uniformly distributed</strong> marginals.</p>
+        <aside class="notes">
+        <ul>
+        <li>what makes them so useful</li>
+        </ul>
+        </aside>
+        </section><section id="sklars-theorem-rv_sklar_1959_fonctions" class="slide level2">
+        <h1>Sklar's theorem <span class="citation" data-cites="rv_sklar_1959_fonctions">(Sklar 1959)</span></h1>
+        <p>Any continuous multivariate distribution can be <strong>decomposed</strong> into a copula and marginal distributions:</p>
+        <figure>
+        <img src="../pics/22sklar_decomp_dens2.png" />
+        </figure>
+        <aside class="notes">
+        <ul>
+        <li>any other probabilistic approach is nested</li>
+        <li>more important</li>
+        </ul>
+        </aside>
+        </section><section id="sklars-theorem-ii" class="slide level2">
+        <h1>Sklar's theorem II</h1>
+        <p>Combining any <strong>copula</strong> with any continuous <strong>marginal distributions</strong> leads to a valid joint distribution:</p>
+        <figure>
+        <img src="../pics/creatingNewDistr.png" />
+        </figure>
+        <aside class="notes">
+        <ul>
+        <li>dramatically expands repertoire of distributions</li>
+        <li>in formulas</li>
+        </ul>
+        </aside>
+        </section><section id="sklars-theorem-iii" class="slide level2">
+        <h1>Sklar's theorem III</h1>
+         <br /><span class="math">$$\begin{equation*}
+        f_{12}(x_{1},x_{2})=c_{12}(F_{1}(x_{1}),F_{2}(x_{2}))f_{1}(x_{1})f_{2}(x_{2})
+        \end{equation*}$$</span><br />
+        <div class="fragment">
+         <br /><span class="math">$$\begin{align*}
+        f_{1 \vert 2}(x_{1} \vert  x_{2})&amp;=\frac{f_{12}(x_{1},x_{2})}{f_{2}(x_{2})}\\
+        &amp;=c_{12}(F_{1}(x_{1}),F_{2}(x_{2}))f_{1}(x_{1})
+        \end{align*}$$</span><br />
+        <aside class="notes">
+        <ul>
+        <li>conditional distributions: plugging into standard formula</li>
+        <li>expression in terms of copula</li>
+        </ul>
+        </aside>
+        </div>
+        </section><section id="general-problem" class="slide level2">
+        <h1>General problem</h1>
+        <p><strong>Quantity of interest</strong></p>
+         <br /><span class="math">$$\begin{equation*}
+        \bf{Z}=g(\bf{X}),\quad \bf{X}=(X_{1},\ldots, X_{d})
+        \end{equation*}$$</span><br />
+        <ul>
+        <li><span class="math"><em>X</em><sub><em>i</em></sub></span> are random variables</li>
+        <li><em>g</em> some kind of aggregation</li>
+        </ul>
+        <div class="fragment">
+        <p><span class="math"> ⇒ </span> both <strong>marginal distributions</strong> and the <strong>dependence</strong> structure are important</p>
+        <aside class="notes">
+        <ul>
+        <li>aggregation: too less observations for lower frequency distributions</li>
+        <li>in this setting: copulas beneficial, first because</li>
+        </ul>
+        </aside>
+        </div>
+        </section><section id="copulas-benefit" class="slide level2">
+        <h1>Copulas: Benefit</h1>
+        <ul>
+        <li>allow fancy dependence structures between <span class="math"><em>X</em><sub><em>i</em></sub></span> and <span class="math"><em>X</em><sub><em>j</em></sub></span></li>
+        </ul>
+        <figure>
+        <img src="../pics/equal_margins_diff_dep.png" />
+        </figure>
+        </section><section id="copulas-main-benefit" class="slide level2">
+        <h1>Copulas: Main benefit</h1>
+        <ul>
+        <li>allow usage of <strong>arbitrary marginal distributions</strong> <span class="math"><em>F</em><sub><em>X</em><sub><em>i</em></sub></sub></span> for joint distribution</li>
+        </ul>
+        <aside class="notes">
+        <ul>
+        <li>to become relevant in real world applications</li>
+        <li>flexible way: multidimensional copulas</li>
+        <li>state of the art</li>
+        </ul>
+        </aside>
+        </section><section id="pair-copula-construction" class="slide level2">
+        <h1>Pair copula construction</h1>
+        <p>Following <span class="citation" data-cites="rv_czad_2014_model">(Czado 2014)</span>:</p>
+        <div class="fragment">
+        <ul>
+        <li>flexible extension to <strong>multi-dimensional</strong> setting</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>using <strong>bivariate copulas</strong> as building blocks for higher-dimensional distributions</li>
+        </ul>
+        </div>
+        </section><section id="section-1" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>based on density decomposition:</li>
+        </ul>
+         <br /><span class="math">$$\begin{equation*}
+        f(x_{1}, \ldots, x_{d})=f_{1}(x_{1})\cdot f_{2 \vert 1}(x_{2} \vert  x_{1}) \cdot
+            \ldots \cdot f_{d \vert  1\ldots d-1}(x_{d} \vert  x_{1}, \ldots, x_{d-1})
+        \end{equation*}$$</span><br />
+        <div class="fragment">
+        <ul>
+        <li>recursive computation of conditional distributions <span class="citation" data-cites="joe96">(Joe 1996)</span>:</li>
+        </ul>
+         <br /><span class="math">$$\begin{equation*}
+        \mathbf{v} \subset\{x_{1},\ldots,x_{d}\},\ x_{i}\not\in \mathbf{v}
+        \end{equation*}$$</span><br />
+        </div>
+        <div class="fragment">
+         <br /><span class="math">$$\begin{align*}
+        F(x_{i} \vert \mathbf{v})&amp;=\\
+        F(x_{i} \vert x_{j}, \mathbf{v}_{-j})&amp;=\frac{\partial C_{ij;\mathbf{v}}\left(F(x_{i} \vert \mathbf{v}_{-j}), F(x_{j} \vert \mathbf{v}_{-j})\right)}
+            {\partial F(x_{j} \vert \mathbf{v}_{-j})}\\
+            &amp;=h_{ij;\mathbf{v}}\left(F(x_{i} \vert \mathbf{v}_{-j}), F(x_{j} \vert \mathbf{v}_{-j})\right)
+        \end{align*}$$</span><br />
+        </div>
+        </section><section id="section-2" class="slide level2">
+        <h1></h1>
+        <p><strong>Example</strong></p>
+         <br /><span class="math">$$\begin{align*}
+        F(x_{1} \vert \{x_{4},x_{5},x_{7}\})&amp;=F(x_{1} \vert x_{4}, \{x_{5},x_{7}\})\\
+            &amp;=h_{14;57}\left(F(x_{1} \vert \{x_{5},x_{7}\}), F(x_{4} \vert \{x_{5},x_{7}\})\right)
+        \end{align*}$$</span><br />
+        <div class="fragment">
+        <p>Alternatively:</p>
+         <br /><span class="math">$$\begin{align*}
+        F(x_{1} \vert \{x_{4},x_{5},x_{7}\})&amp;=F(x_{1} \vert x_{5}, \{x_{4},x_{7}\})\\
+            &amp;=h_{15;47}\left(F(x_{1} \vert \{x_{4},x_{7}\}), F(x_{5} \vert \{x_{4},x_{7}\})\right)
+        \end{align*}$$</span><br />
+        </div>
+        </section><section id="section-3" class="slide level2">
+        <h1></h1>
+        <p>Decompose density such that dependency between variables is defined exactly once for each pair of variables <span class="math">(<em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>j</em></sub>)</span>:</p>
+        <div class="fragment">
+        <ul>
+        <li>dependency either specified <strong>unconditionally</strong>:</li>
+        </ul>
+         <br /><span class="math">$$\begin{equation*}
+        c_{ij}(F(x_{i}),F(x_{j}))
+        \end{equation*}$$</span><br />
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>or <strong>conditionally</strong>:</li>
+        </ul>
+         <br /><span class="math">$$\begin{equation*}
+        c_{ij;\mathbf{v}}(F(x_{i} \vert \mathbf{v}),F(x_{j} \vert \mathbf{v}))
+        \end{equation*}$$</span><br />
+        </div>
+        </section><section id="section-4" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>huge number of possible decompositions <span class="citation" data-cites="rv_moral_cook_2010_about">(Morales-N<span>á</span>poles, Cooke, and Kurowicka 2010)</span>:</li>
+        </ul>
+        <figure>
+        <img src="../pics/number_of_rvines.png" />
+        </figure>
+        </section><section id="section-5" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>vines: graphical structure to organize different density decompositions <span class="citation" data-cites="rv_bedf_cook_2002_vines">(Bedford and Cooke 2002)</span></li>
+        </ul>
+        <div class="fragment">
+        <figure>
+        <img src="../pics/rvine_trees3.png" />
+        </figure>
+        </div>
+        </section><section id="tree-selection-strategies" class="slide level2">
+        <h1>tree selection strategies</h1>
+        <ul>
+        <li><strong>iterative procedure</strong>: higher conditional copulas based on estimation error of first steps</li>
+        </ul>
+        <div class="fragment">
+        <p><span class="math"> ⇒ </span> heuristic: capture <strong>strong</strong> pairwise <strong>dependencies first</strong></p>
+        </div>
+        <div class="fragment">
+        <p><span class="math"> ⇒ </span> e.g.: <strong>maximum spanning tree</strong> algorithms</p>
+        </div>
+        </section></section>
+        <section><section id="copula-factor-model" class="titleslide slide level1"><h1>Copula factor model</h1></section><section id="general-problem-1" class="slide level2">
+        <h1>General problem</h1>
+        <p><strong>Quantity of interest</strong></p>
+         <br /><span class="math">$$\begin{equation*}
+        \bf{Z}=g(\bf{X}),\quad \bf{X}=(X_{1},\ldots, X_{d})
+        \end{equation*}$$</span><br />
+        <div class="fragment">
+        <p><strong>Modification</strong></p>
+         <br /><span class="math">$$\begin{equation*}
+        \bf{Z}=g(\bf{X}),\quad \bf{X}=(X_{1},\ldots, X_{d}, \color{lawngreen}{S_{1},\ldots,S_{d_{S}}})
+        \end{equation*}$$</span><br />
+        </div>
+        </section><section id="idea" class="slide level2">
+        <h1>Idea</h1>
+        <ul>
+        <li>impose additional structure to <strong>reduce estimation error</strong></li>
+        </ul>
+        <div class="fragment">
+        <ul>
+        <li>similar to conventional <strong>factor model</strong></li>
+        </ul>
+         <br /><span class="math">$$\begin{equation*}
+        X_{i}=\alpha_{1}S_{1}+\ldots+\alpha_{d_{S}}S_{d_{S}}+\epsilon_{i}
+        \end{equation*}$$</span><br />
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>links to factors drive joint distribution</li>
+        </ul>
+         <br /><span class="math">$$\begin{equation*}
+        \Sigma_{X}=A\Sigma_{S} A^{T} + \text{Cov}(\epsilon)
+        \end{equation*}$$</span><br />
+        </div>
+        <div class="fragment">
+        <p>So far:</p>
+        <ul>
+        <li>straightforward application of conventional R-Vine model to <span class="math">$\bf{X}=(X_{1},\ldots, X_{d},  \color{lawngreen}{S_{1},\ldots,S_{d_{S}}})$</span></li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>&quot;only&quot; challenge: <strong>find optimal</strong> auxiliary <strong>factors</strong></li>
+        </ul>
+        </div>
+        </section><section id="deviations-from-conventional-approach" class="slide level2">
+        <h1>Deviations from conventional approach</h1>
+        <div class="fragment">
+        <ul>
+        <li>conventional R-Vine model: <strong>joint unconditional distribution</strong> as modeling target</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>no special ordering on variables: variables occur <strong>&quot;simultaneously&quot;</strong></li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <p>Now with factor structure:</p>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>temptation of <strong>conditional modeling</strong> due to interpretable structure</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li><strong>stress testing</strong>: what if factors were ... ?</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li><strong>update distribution</strong>: factors represent persistent states</li>
+        </ul>
+        <aside class="notes">
+        <ul>
+        <li>probabilistic inference</li>
+        </ul>
+        </aside>
+        </div>
+        </section><section id="conditional-distribution" class="slide level2">
+        <h1>Conditional distribution</h1>
+        <p>Conditioning sets need to <strong>align</strong> with chosen density <strong>decomposition</strong>.</p>
+        <div class="fragment">
+        <p>Three types of accessibility for conditional distributions:</p>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li><strong>directly accessible</strong></li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li><strong>simulation possible</strong></li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li><strong>integration required</strong> even for simulation</li>
+        </ul>
+        </div>
+        </section><section id="example" class="slide level2">
+        <h1>Example</h1>
+        <figure>
+        <img src="../pics/threeDimVine.svg" />
+        </figure>
+        </section><section id="section-6" class="slide level2">
+        <h1></h1>
+         <br /><span class="math">$$\begin{align*}
+        c_{123}(u_{1},u_{2},u_{3})=&amp;\overline{f}_{3 \vert 12}(u_{3} \vert  u_{1},u_{2})\overline{f}_{2 \vert 1}(u_{2} \vert u_{1})\\
+        =&amp;c_{23;1}(\overline{F}_{2 \vert 1}(u_{2} \vert u_{1}), \overline{F}_{3 \vert 1}(u_{3} \vert u_{1}))\\
+        &amp;c_{12}(u_{1},u_{2})c_{13}(u_{1},u_{3})
+        \end{align*}$$</span><br />
+        </section><section id="section-7" class="slide level2">
+        <h1></h1>
+        <p>Directly accessible:</p>
+         <br /><span class="math">$$\begin{equation*}
+        \overline{f}_{2|1}(u_{2} \vert u_{1})
+        \end{equation*}$$</span><br />
+        <div class="fragment">
+        <p>Simulation possible:</p>
+         <br /><span class="math">$$\begin{equation*}
+        \overline{f}_{3|2}(u_{3} \vert u_{2})=\int \overline{f}_{3 \vert 12}(u_{3} \vert u_{1},u_{2})\overline{f}_{1 \vert 2}(u_{1} \vert u_{2})\text{d}u_{1}
+        \end{equation*}$$</span><br />
+        </div>
+        </section><section id="problem" class="slide level2">
+        <h1>Problem</h1>
+         <br /><span class="math">$$\begin{align*}
+        \overline{f}_{1 ; 23}(u_{1} \vert u_{2}, u_{3})&amp;=
+            \frac{c_{123}(u_{1},u_{2},u_{3})}{c_{23}(u_{2},u_{3})}\\
+        &amp;=\frac{c_{23 ; 1}(\overline{F}_{2 \vert 1}(u_{2} \vert u_{1}),\overline{F}_{3 \vert 1}(u_{3} \vert u_{1}) )c_{12}(u_{1},u_{2})c_{13}(u_{1},u_{3})}
+        {c_{23}(u_{2},u_{3})}
+        \end{align*}$$</span><br />
+        <div class="fragment">
+         <br /><span class="math">$$\begin{align*}
+        c_{23}(u_{2},u_{3})
+        &amp;=\int_{0}^{1}c_{23 ; 1}(\overline{F}_{2 \vert 1}(u_{2} \vert u_{1}),\overline{F}_{3 \vert 1}(u_{3} \vert u_{1}) )c_{12}(u_{1},u_{2})c_{13}(u_{1},u_{3})\text{d}u_{1}
+        \end{align*}$$</span><br />
+        </div>
+        </section><section id="section-8" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>build vine such that desired conditional distributions are accessible</li>
+        </ul>
+        <div class="fragment">
+        <ul>
+        <li>which ones are accessible?</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <p><span class="math"> ⇒ </span> additional insights into structure of given R-Vine</p>
+        </div>
+        </section></section>
+        <section><section id="conditioning-trees" class="titleslide slide level1"><h1>Conditioning trees</h1></section><section id="section-9" class="slide level2">
+        <h1></h1>
+        <p><strong>Representation</strong> of directly accessible <strong>conditional distributions</strong> of a given variable</p>
+        <div class="fragment">
+        <figure>
+        <img src="../pics/plainTree.svg" />
+        </figure>
+        </div>
+        </section><section id="section-10" class="slide level2">
+        <h1></h1>
+        <p><strong>Notation</strong></p>
+        <p>For a given rooted tree with root node <span class="math"><em>R</em></span></p>
+         <br /><span class="math">$$\begin{equation*}
+        \mathfrak{p}(x_{i})
+        \end{equation*}$$</span><br />
+        <p>denotes the <strong>path from vertex <span class="math"><em>x</em><sub><em>i</em></sub></span> to <span class="math"><em>R</em></span></strong>, excluding <span class="math"><em>R</em></span> and <span class="math"><em>x</em><sub><em>i</em></sub></span>.</p>
+        </section><section id="example-1" class="slide level2">
+        <h1>Example</h1>
+        <figure>
+        <img src="../pics/pathAndNode.svg" />
+        </figure>
+         <br /><span class="math">$$\begin{equation*}
+        \mathfrak{p}(x_{7})=\{x_{3},x_{6}\}
+        \end{equation*}$$</span><br />
+        </section><section id="section-11" class="slide level2">
+        <h1></h1>
+        <p><strong>Definition</strong></p>
+        <p>Let <span class="math">𝒯 = (<em>R</em>, <em>V</em>, <em>E</em>)</span> be a rooted tree with root node <span class="math"><em>x</em><sub><em>R</em></sub></span>, set of vertices <span class="math"><em>V</em></span> and edge set <span class="math"><em>E</em></span>. <span class="math">𝒯</span> is called <strong>conditioning tree of variable <span class="math"><em>x</em><sub><em>R</em></sub></span> with respect to vine <span class="math">𝒱</span></strong> if for any vertex <span class="math"><em>x</em><sub><em>i</em></sub> ∈ <em>V</em></span></p>
+         <br /><span class="math">$$\begin{equation*}
+        C_{x_{R}x_{i} ; \mathfrak{p}(x_{i})}
+        \end{equation*}$$</span><br />
+        <p>is part of <span class="math">𝒱</span>'s density decomposition.</p>
+        </section><section id="example-2" class="slide level2">
+        <h1>Example</h1>
+        <figure>
+        <img src="../pics/pathAndNode.svg" />
+        </figure>
+         <br /><span class="math">$$\begin{equation*}
+        \mathfrak{p}(x_{7})=\{x_{3},x_{6}\}\\
+        \Rightarrow C_{27 ; 36} \text{ and } F_{2 \vert 367} \text{ given by } \mathcal{V}
+        \end{equation*}$$</span><br />
+        </section><section id="section-12" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>conditional distribution accessible</li>
+        </ul>
+        <figure>
+        <img src="../pics/accessible.svg" />
+        </figure>
+        </section><section id="section-13" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>simulation possible?</li>
+        </ul>
+        <figure>
+        <img src="../pics/simPossible.svg" />
+        </figure>
+        </section><section id="section-14" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>integration required</li>
+        </ul>
+        <figure>
+        <img src="../pics/integRequ.svg" />
+        </figure>
+        </section><section id="vine-example" class="slide level2">
+        <h1>Vine example</h1>
+        <ul>
+        <li>comparison to standard vine visualizations</li>
+        </ul>
+        <figure>
+        <img src="../pics/vineTrees.svg" />
+        </figure>
+        </section><section id="section-15" class="slide level2">
+        <h1></h1>
+        <figure>
+        <img src="../pics/rvine_trees3.png" />
+        </figure>
+        </section><section id="section-16" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>in <strong>R-Vine matrix</strong> notation</li>
+        </ul>
+         <br /><span class="math">$$\begin{equation*}
+        \begin{pmatrix}
+        4 &amp; &amp; &amp; &amp; &amp; &amp; \\
+        7 &amp; 5 &amp; &amp; &amp; &amp; &amp; \\
+        6 &amp; 7 &amp; 1 &amp; &amp; &amp; &amp; \\
+        5 &amp; 6 &amp; 7 &amp; 7 &amp; &amp; &amp; \\
+        1 &amp; 1 &amp; 6 &amp; 2 &amp; 6 &amp; &amp; \\
+        2 &amp; 3 &amp; 3 &amp; 3 &amp; 2 &amp; 2 &amp; \\
+        3 &amp; 2 &amp; 2 &amp; 6 &amp; 3 &amp; 3 &amp; 3 
+        \end{pmatrix}
+        
+        
+        \begin{pmatrix}
+        7 &amp; &amp; &amp; &amp; &amp; &amp; \\
+        4 &amp; 4 &amp; &amp; &amp; &amp; &amp; \\
+        5 &amp; 6 &amp; 6 &amp; &amp; &amp; &amp; \\
+        1 &amp; 5 &amp; 5 &amp; 5 &amp; &amp; &amp; \\
+        2 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; &amp; \\
+        3 &amp; 2 &amp; 2 &amp; 3 &amp; 3 &amp; 3 &amp; \\
+        6 &amp; 3 &amp; 3 &amp; 2 &amp; 2 &amp; 2 &amp; 2 
+        \end{pmatrix}
+        
+        \end{equation*}$$</span><br />
+        </section><section id="section-17" class="slide level2">
+        <h1></h1>
+        <p><span class="math"><em>X</em><sub>7|235</sub>?</span></p>
+        <figure>
+        <img src="../pics/conditionalTarget.svg" />
+        </figure>
+        </section><section id="section-18" class="slide level2">
+        <h1></h1>
+        <figure>
+        <img src="../pics/conditionalTarget2.svg" />
+        </figure>
+        </section><section id="section-19" class="slide level2">
+        <h1></h1>
+        <figure>
+        <img src="../pics/conditionalTarget3.svg" />
+        </figure>
+        </section><section id="section-20" class="slide level2">
+        <h1></h1>
+        <figure>
+        <img src="../pics/conditionalTarget4.svg" />
+        </figure>
+        </section><section id="section-21" class="slide level2">
+        <h1></h1>
+        <figure>
+        <img src="../pics/conditionalTarget5.svg" />
+        </figure>
+        </section><section id="section-22" class="slide level2">
+        <h1></h1>
+        <p><span class="math"><em>X</em><sub>7|2356</sub>?</span></p>
+        <figure>
+        <img src="../pics/conditionalTarget6.svg" />
+        </figure>
+        </section><section id="section-23" class="slide level2">
+        <h1></h1>
+        <figure>
+        <img src="../pics/conditionalTarget7.svg" />
+        </figure>
+        </section><section id="conclusion" class="slide level2">
+        <h1>Conclusion</h1>
+        <p>For given vine, conditioning trees help</p>
+        <div class="fragment">
+        <ul>
+        <li>identify accessible conditional distributions</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>find simulation sequences</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>visualize structure of vine: identify fundamental variables</li>
+        </ul>
+        </div>
+        </section><section id="application" class="slide level2">
+        <h1>Application</h1>
+        <p>Vine construction:</p>
+        <div class="fragment">
+        <ul>
+        <li>incorporate interpretable structure</li>
+        </ul>
+        </div>
+        <div class="fragment">
+        <ul>
+        <li>time series context: ensure stationarity</li>
+        </ul>
+        </div>
+        </section><section id="section-24" class="slide level2">
+        <h1></h1>
+        <ul>
+        <li>most likely: whether or not a conditional distribution is accessible only depends on whether the unconditional distribution of the conditioning set is accessible</li>
+        </ul>
+        <p><br /><span class="math">$$f_{\mathbf{w} \vert
+        \mathbf{v}}=\frac{f_{\mathbf{x}}(x_{1},\ldots,x_{d})}{f_{\mathbf{v}}(x_{i}, x_{i}\in \mathbf{v})}$$</span><br /></p>
+        <p><br /><span class="math"><em>f</em><sub><strong>w</strong>|<strong>v</strong></sub> ⇔ <em>f</em><sub><strong>v</strong></sub>(<em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em></sub> ∈ <strong>v</strong>)</span><br /></p>
+        </section><section id="references" class="slide level2 unnumbered">
+        <h1>References</h1>
+        <div class="references">
+        <p><em>Bedford, Tim, and Roger M Cooke</em>. 2002. “<strong>Vines: A New Graphical Model for Dependent Random Variables</strong>.” <em>Annals of Statistics</em>. <em>JSTOR</em>, 1031–68.</p>
+        <p><em>Czado, Claudia</em>. 2014. <strong>Model selection of vine copulas with applications</strong>. <em>Technische Universität München; International Workshop on High-Dimensional Dependence and Copulas</em>. <a href="http://www.statistics.ma.tum.de/fileadmin/w00bdb/www/veranstaltungen/VineHomepage/Claudia\_Czado.pdf" class="uri">http://www.statistics.ma.tum.de/fileadmin/w00bdb/www/veranstaltungen/VineHomepage/Claudia\_Czado.pdf</a>.</p>
+        <p><em>Joe, Harry</em>. 1996. “<strong>Families of <span class="math"><em>m</em></span>-Variate Distributions with Given Margins and <span class="math"><em>m</em>(<em>m</em> − 1)/2</span> Bivariate Dependence Parameters</strong>.” In <em>Distributions with Fixed Marginals and Related Topics</em>, edited by Ludger Rüschendorf, Berthold Schweizer, and Michael D. Taylor, Volume 28:120–41. Lecture Notes–Monograph Series. <em>Institute of Mathematical Statistics</em>. doi:<a href="http://dx.doi.org/10.1214/lnms/1215452614">10.1214/lnms/1215452614</a>.</p>
+        <p><em>Morales-N<span>á</span>poles, O, R Cooke, and D Kurowicka</em>. 2010. “<strong>About the Number of Vines and Regular Vines on N Nodes</strong>.” <em>Submitted for Publication</em>.</p>
+        <p><em>Sklar, A.</em> 1959. <strong>Fonctions de répartition à n dimensions et leurs marges</strong>. <em>Publications de l’Institut de Statistique de L’Université de Paris</em>.</p>
+        </div>
+        </section></section>
+      </div>
+    </div>
+    
+    
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    
+    <script>
+      
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,         // Display controls in the bottom right corner
+      progress: true,         // Display a presentation progress bar
+      history: true,          // Push each slide change to the browser history
+      center: true,                       // Vertical centering of slides
+      maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+      slideNumber: true,                // Display the page number of the current slide
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+      
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      //          { src: '../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+      //          { src: '../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]});
+    </script>
+      </body>
+</html>
