@@ -1,6 +1,8 @@
 # Description
 
-This repository hosts the slides to my jrw talk.
+This repository hosts the
+[slides](http://cgroll.github.io/jrw_vine_visualization/output/contents.slides.html#/)
+to my jrw talk. 
 
 ## Requirements
 
