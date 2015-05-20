@@ -552,16 +552,5 @@ Vine construction:
 
 - time series context: ensure stationarity
 
-##
-
-- most likely: whether or not a conditional distribution is accessible
-  only depends on whether the unconditional distribution of the
-  conditioning set is accessible
-
-$$f_{\mathbf{w} \vert
-\mathbf{v}}=\frac{f_{\mathbf{x}}(x_{1},\ldots,x_{d})}{f_{\mathbf{v}}(x_{i}, x_{i}\in \mathbf{v})}$$
-
-$$f_{\mathbf{w} \vert \mathbf{v}} \Leftrightarrow f_{\mathbf{v}}(x_{i}, x_{i}\in \mathbf{v})$$
-
 ## References
 
