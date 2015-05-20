@@ -195,9 +195,9 @@ c_{ij;\mathbf{v}}(F(x_{i} \vert \mathbf{v}),F(x_{j} \vert \mathbf{v}))
 - vines: graphical structure to organize different density
   decompositions [@rv_bedf_cook_2002_vines]
 
-**TODO**
+. . .
 
-INCLUDE: pics of vine
+![](../pics/rvine_trees3.png)
 
 ## tree selection strategies
 
@@ -347,12 +347,10 @@ Simulation possible:
 
 ## Problem
 
-**TODO**: add missing copula terms $c_{12}$ and $c_{13}$
-
 \begin{align*}
 \overline{f}_{1 ; 23}(u_{1} \vert u_{2}, u_{3})&=
 	\frac{c_{123}(u_{1},u_{2},u_{3})}{c_{23}(u_{2},u_{3})}\\
-&=\frac{c_{23 ; 1}(\overline{F}_{2 \vert 1}(u_{2} \vert u_{1}),\overline{F}_{3 \vert 1}(u_{3} \vert u_{1}) ) }
+&=\frac{c_{23 ; 1}(\overline{F}_{2 \vert 1}(u_{2} \vert u_{1}),\overline{F}_{3 \vert 1}(u_{3} \vert u_{1}) )c_{12}(u_{1},u_{2})c_{13}(u_{1},u_{3})}
 {c_{23}(u_{2},u_{3})}
 \end{align*}
 
@@ -360,18 +358,22 @@ Simulation possible:
 
 \begin{align*}
 c_{23}(u_{2},u_{3})
-&=\int_{0}^{1}c_{23 ; 1}(\overline{F}_{2 \vert 1}(u_{2} \vert u_{1}),\overline{F}_{3 \vert 1}(u_{3} \vert u_{1}) )\text{d}u_{1}
+&=\int_{0}^{1}c_{23 ; 1}(\overline{F}_{2 \vert 1}(u_{2} \vert u_{1}),\overline{F}_{3 \vert 1}(u_{3} \vert u_{1}) )c_{12}(u_{1},u_{2})c_{13}(u_{1},u_{3})\text{d}u_{1}
 \end{align*}
 
 
 ## 
 
-**TODO**
-
 - build vine such that desired conditional distributions are
   accessible
 
-- which are accessible?
+. . .
+
+- which ones are accessible?
+
+. . .
+
+$\Rightarrow$ additional insights into structure of given R-Vine
 
 # Conditioning trees
 
@@ -394,8 +396,17 @@ For a given rooted tree with root node $R$
 \mathfrak{p}(x_{i})
 \end{equation*}
 
-denotes the path from vertex $x_{i}$ to $R$, excluding $R$ and
+denotes the **path from vertex $x_{i}$ to $R$**, excluding $R$ and
 $x_{i}$.
+
+## Example
+
+
+![](../pics/pathAndNode.svg)
+
+\begin{equation*}
+\mathfrak{p}(x_{7})=\{x_{3},x_{6}\}
+\end{equation*}
 
 ##
 
@@ -515,6 +526,34 @@ $X_{7 \vert 2356}?$
 
 ## Conclusion
 
+For given vine, conditioning trees help
+
+. . .
+
+- identify accessible conditional distributions
+
+. . .
+
+- find simulation sequences
+
+. . .
+
+- visualize structure of vine: identify fundamental variables
+
+## Application
+
+Vine construction:
+
+. . .
+
+- incorporate interpretable structure
+
+. . .
+
+- time series context: ensure stationarity
+
+##
+
 - most likely: whether or not a conditional distribution is accessible
   only depends on whether the unconditional distribution of the
   conditioning set is accessible
@@ -523,36 +562,6 @@ $$f_{\mathbf{w} \vert
 \mathbf{v}}=\frac{f_{\mathbf{x}}(x_{1},\ldots,x_{d})}{f_{\mathbf{v}}(x_{i}, x_{i}\in \mathbf{v})}$$
 
 $$f_{\mathbf{w} \vert \mathbf{v}} \Leftrightarrow f_{\mathbf{v}}(x_{i}, x_{i}\in \mathbf{v})$$
-
-- conditioning trees give you a way to visualize a vine structure
-- they give you an instruction of how to simulate from a given
-  conditional distribution
-
-# Next time
-
-## Perception
-
-- move away from blackbox approach
-
-## Multiple time layers
-
-## Time series
-
-Problem: stationarity
-
-
-## Possible criticism
-
-- unintuitive, complicated $\Rightarrow$ blackbox approach
-
-. . .
-
-- overfitting
-
-. . .
-
-- simplifying assumption (Spanhel, Kurz)
-
 
 ## References
 
